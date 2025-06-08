@@ -1,13 +1,7 @@
 import express, {Router} from "express";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv"
-import path from "path";
-
-
-dotenv.config({
-    path: path.resolve(__dirname, "../../../../../.env")
-});
-const JWT_SECRET = process.env.JWT_SECRET;
+import {JWT_SECRET} from "@repo/backend-common/config"
 console.log(JWT_SECRET);
 
 export const userAuthRouter: Router = express.Router();

@@ -1,5 +1,5 @@
 import express, {Router}  from "express";
-import {userAuthROuter} from "./userAuthRoute/index"
+import {userAuthRouter} from "./userAuthRoute/index"
 
 export const mainRouter: Router = express.Router();
 
@@ -9,5 +9,5 @@ mainRouter.get("/health", (req, res) => {
     })
 });
 
-mainRouter.use("/user", userAuthROuter);
+mainRouter.use("/user", userAuthRouter);
 

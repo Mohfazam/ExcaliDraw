@@ -16,12 +16,15 @@ model user{
   password    String
   name        String
   photo       String
+  rooms       room[]
 }
 
 model room{
   id          Int           @id @default(autoincrement())
   slug        String        @unique
   createdAt   DateTime      @default(now())
+  adminId     String
+  admin       user           @relation(fields: [adminId], references: [id])
 }
 
 model chat{

@@ -31,15 +31,6 @@ model room{
 
 
 
-
-
-
-
-
-
-
-
-    
 model chat{
   id           Int           @id @default(autoincrement())
   message      Int           

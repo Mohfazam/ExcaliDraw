@@ -41,19 +41,32 @@ app.post("/signup", async (req, res) => {
   
 });
 
-app.post("/signin", (req, res) => {
-  const data = signinSchema.safeParse(req.body);
+app.post("/signin", async (req, res) => {
+  const parsedData = signinSchema.safeParse(req.body);
 
-  if (!data.success) {
+  if (!parsedData.success) {
     return res.json({
       Message: "Incorrect Inputs",
     });
   }
-  const userId = 1;
+  const user = await prismaClient.user.findFirst({
+    where:{
+        email: parsedData.data.username,
+        password: parsedData.data.password
+    }
+  });
+
+  if(!user){
+    res.status(403).json({
+        Message: "Not Authorized"
+    });
+
+    return;
+  }
 
   const token = jwt.sign(
     {
-      userId,
+      userId: user?.id,
     },
     JWT_SECRET
   );

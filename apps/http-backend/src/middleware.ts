@@ -7,7 +7,7 @@ interface AuthenticatedRequest extends Request {
 }
 
 export function middleware(req: AuthenticatedRequest, res:Response, next: NextFunction){
-    const token = (req.headers["authorization"] as string) ?? "";
+    const token = (req.headers["authorization"]?.split("Bearer")[1]?.trim() as string) ?? "";
 
     const decoded = jwt.verify(token, JWT_SECRET) as {userId: string};
 

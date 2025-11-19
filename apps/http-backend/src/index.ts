@@ -22,7 +22,7 @@ app.post("/signup", async (req, res) => {
 
   if (!parsedData.success) {
     // console.log(parsedData.error);
-    return res.json({
+    return res.status(401).json({
       Message: "Incorrect Inputs",
     });
   }

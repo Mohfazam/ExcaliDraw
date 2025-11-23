@@ -9,15 +9,17 @@ export default function Home() {
   const [roomId, setRoomId] = useState("");
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <input value={roomId} onChange={(e) => {
-        e.preventDefault();
-        setRoomId(e.target.value);
-      }} type="text" placeholder="Room id"/>
+    <div className="flex items-center justify-center min-h-screen">
+      <div>
+        <input value={roomId} onChange={(e) => {
+          e.preventDefault();
+          setRoomId(e.target.value);
+        }} type="text" placeholder="Room id" className="p-4"/>
 
-      <button onClick={() => {
-        router.push(`/room/${roomId}`);
-      }}>Join Room</button>
+        <button onClick={() => {
+          router.push(`/room/${roomId}`);
+        }} className="p-4">Join Room</button>
+      </div>
     </div>
   );
 }

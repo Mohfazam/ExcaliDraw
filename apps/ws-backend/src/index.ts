@@ -80,7 +80,7 @@ wss.on('connection', function connection(ws, request) {
 
            
             const room = await prismaClient.room.findUnique({
-                where: { slug: roomSlug }
+                where: { id: Number(roomSlug) }
             });
 
             if (!room) {

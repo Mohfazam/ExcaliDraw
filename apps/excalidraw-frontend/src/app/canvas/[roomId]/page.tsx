@@ -11,9 +11,12 @@ export default function Canvas() {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext("2d");
 
+            
             if (!ctx) {
                 return;
             }
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = "rgba(0, 0, 0)";
 
             let clicked = false;
             let startX = 0;
@@ -36,6 +39,9 @@ export default function Canvas() {
                     const width = e.clientX - startX;
                     const height = e.clientY - startY;
                     ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = "rgba(0, 0, 0)";
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.strokeStyle = "rgba(255,255,255)";
                     ctx.strokeRect(startX, startY, width, height);
                 }
             });
@@ -44,7 +50,7 @@ export default function Canvas() {
     }, [canvasRef]);
     return (
         <div className="w-screen h-screen bg-white">
-            <canvas ref={canvasRef} width={500} height={500}>Inside canvas</canvas>
+            <canvas ref={canvasRef} width={2000} height={1000}>Inside canvas</canvas>
         </div>
     )
 }

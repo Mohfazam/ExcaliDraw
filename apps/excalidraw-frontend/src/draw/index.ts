@@ -54,11 +54,25 @@ export function initDraw(canvas: HTMLCanvasElement) {
     if (clicked) {
       const width = e.clientX - startX;
       const height = e.clientY - startY;
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      ctx.fillStyle = "rgba(0, 0, 0)";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      clearCanvas(existingShapes, canvas, ctx);
       ctx.strokeStyle = "rgba(255,255,255)";
       ctx.strokeRect(startX, startY, width, height);
     }
   });
+}
+
+function clearCanvas(existingShapes: Shape[], canvas: HTMLCanvasElement, ctx: CanvasRenderingContext2D){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.fillStyle = "rgba(0, 0, 0)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+  existingShapes.map((shape) => {
+    if(shape.type === "rect"){
+
+
+      ctx.strokeStyle = "rgba(255,255,255)";
+      ctx.strokeRect(shape.x, shape.y, shape.width, shape.height);
+    }
+  })
 }

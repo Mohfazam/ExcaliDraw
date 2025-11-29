@@ -8,9 +8,10 @@
     "start": "next start"
   },
   "dependencies": {
+    "@repo/ui": "workspace:*",
+    "axios": "^1.13.2",
     "next": "16.0.5",
     "react": "19.2.0",
-    "@repo/ui":"workspace:*",
     "react-dom": "19.2.0"
   },
   "devDependencies": {

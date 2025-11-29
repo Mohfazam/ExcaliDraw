@@ -2,24 +2,43 @@
 
 import { useEffect, useRef } from "react"
 
-export default function Canvas(){
+export default function Canvas() {
     const canvasRef = useRef<HTMLCanvasElement>(null);
 
     useEffect(() => {
 
-        if(canvasRef.current){
+        if (canvasRef.current) {
             const canvas = canvasRef.current;
             const ctx = canvas.getContext("2d");
 
-            if(!ctx){
+            if (!ctx) {
                 return;
             }
 
-            ctx.strokeRect(25, 25, 100, 100);
+            let clicked = false;
+
+            canvas.addEventListener("mousedown", (e) => {
+                clicked = true;
+                console.log(e.clientX);
+                console.log(e.clientY);
+            });
+
+            canvas.addEventListener("mouseup", (e) => {
+                clicked = false;
+                console.log(e.clientX);
+                console.log(e.clientY);
+            });
+
+            canvas.addEventListener("mousemove", (e) => {
+                if (clicked) {
+                    console.log("MouseMove" + e.clientX);
+                    console.log("MouseMove" + e.clientY);
+                }
+            });
         }
 
     }, [canvasRef]);
-    return(
+    return (
         <div>
             <canvas ref={canvasRef} width={500} height={500}>Inside canvas</canvas>
         </div>

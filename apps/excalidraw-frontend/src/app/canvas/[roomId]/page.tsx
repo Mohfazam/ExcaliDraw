@@ -16,11 +16,13 @@ export default function Canvas() {
             }
 
             let clicked = false;
+            let startX = 0;
+            let startY = 0;
 
             canvas.addEventListener("mousedown", (e) => {
                 clicked = true;
-                console.log(e.clientX);
-                console.log(e.clientY);
+                startX = e.clientX;
+                startY = e.clientY;
             });
 
             canvas.addEventListener("mouseup", (e) => {
@@ -31,15 +33,17 @@ export default function Canvas() {
 
             canvas.addEventListener("mousemove", (e) => {
                 if (clicked) {
-                    console.log("MouseMove" + e.clientX);
-                    console.log("MouseMove" + e.clientY);
+                    const width = e.clientX - startX;
+                    const height = e.clientY - startY;
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    ctx.strokeRect(startX, startY, width, height);
                 }
             });
         }
 
     }, [canvasRef]);
     return (
-        <div>
+        <div className="w-screen h-screen bg-white">
             <canvas ref={canvasRef} width={500} height={500}>Inside canvas</canvas>
         </div>
     )

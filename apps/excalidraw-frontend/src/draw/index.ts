@@ -1,5 +1,20 @@
+type Shape = {
+  type: "rect";
+  x:number;
+  y:number;
+  width: number;
+  height: number;
+} | {
+  type: "circle";
+  centerX:number;
+  centerY:number;
+  radius: number;
+}
+
 export function initDraw(canvas: HTMLCanvasElement) {
   const ctx = canvas.getContext("2d");
+
+  let existingShapes: Shape[] = [];
 
   if (!ctx) {
     return;
@@ -14,14 +29,25 @@ export function initDraw(canvas: HTMLCanvasElement) {
 
   canvas.addEventListener("mousedown", (e) => {
     clicked = true;
+
     startX = e.clientX;
     startY = e.clientY;
+    
   });
 
   canvas.addEventListener("mouseup", (e) => {
     clicked = false;
-    console.log(e.clientX);
-    console.log(e.clientY);
+
+    const width = e.clientX - startX;
+    const height = e.clientY - startY;
+
+    existingShapes.push({
+      type: "rect",
+      x: startX,
+      y: startY,
+      height,
+      width
+    });
   });
 
   canvas.addEventListener("mousemove", (e) => {

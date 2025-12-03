@@ -16,7 +16,7 @@ export const Canvas = ({
             initDraw(canvasRef.current, roomId, socket);
         }
 
-    }, [canvasRef]);
+    }, [canvasRef, socket]);
   return (
     <div>
         <canvas ref={canvasRef} width={2000} height={1000}></canvas>

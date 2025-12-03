@@ -14,19 +14,16 @@ type Shape = {
   radius: number;
 }
 
-export function initDraw(canvas: HTMLCanvasElement) {
+export async function initDraw(canvas: HTMLCanvasElement, roomId: string) {
   const ctx = canvas.getContext("2d");
 
-
-
-  let existingShapes: Shape[] = [];
+  let existingShapes: Shape[] = await getExistingShapes(roomId);
 
   if (!ctx) {
     return;
   }
 
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "rgba(0, 0, 0)";
+  clearCanvas(existingShapes ,canvas, ctx);
 
   let clicked = false;
   let startX = 0;

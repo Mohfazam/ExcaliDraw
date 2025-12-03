@@ -52,13 +52,23 @@ export async function initDraw(canvas: HTMLCanvasElement, roomId: string, socket
     const width = e.clientX - startX;
     const height = e.clientY - startY;
 
-    existingShapes.push({
+    const shape: Shape = {
       type: "rect",
       x: startX,
       y: startY,
       height,
       width
-    });
+    }
+
+    existingShapes.push(shape);
+
+    socket.send(JSON.stringify({
+      type: "chat",
+      message: JSON.stringify({
+        shape
+      })
+    }));
+
   });
 
   canvas.addEventListener("mousemove", (e) => {

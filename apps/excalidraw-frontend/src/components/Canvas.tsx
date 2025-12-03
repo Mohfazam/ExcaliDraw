@@ -2,9 +2,10 @@ import { initDraw } from '@/draw';
 import React, { useEffect, useRef } from 'react'
 
 export const Canvas = ({
-    roomId
+    roomId, socket
 }:{
-    roomId: string
+    roomId: string;
+    socket: WebSocket;
 }) => {
       const canvasRef = useRef<HTMLCanvasElement>(null);
     
@@ -12,7 +13,7 @@ export const Canvas = ({
     useEffect(() => {
 
         if (canvasRef.current) {
-            initDraw(canvasRef.current, roomId);
+            initDraw(canvasRef.current, roomId, socket);
         }
 
     }, [canvasRef]);

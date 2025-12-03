@@ -1,5 +1,6 @@
 import express from "express";
 import { Request } from "express";
+import cors from "cors"
 import jwt from "jsonwebtoken";
 import { JWT_SECRET } from "@repo/backend-common/config";
 import { middleware } from "./middleware";
@@ -16,6 +17,7 @@ interface AuthenticatedRequest extends Request {
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 app.post("/signup", async (req, res) => {
   const parsedData = createUserSchema.safeParse(req.body);

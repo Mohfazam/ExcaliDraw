@@ -52,6 +52,7 @@ this.selectedTool = Tool;
 
   async init() {
     this.existingShapes = await getExistingShapes(this.roomId);
+    this.clearCanvas();
   }
 
   initHandlers() {

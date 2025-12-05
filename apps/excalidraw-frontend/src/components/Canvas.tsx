@@ -14,6 +14,12 @@ export const Canvas = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [selectedTool, setSelectedTool] = useState<Shape>("circle");
 
+  useEffect(() => {
+    //@ts-ignore
+    window.selectedTool = selectedTool;
+
+  }, [selectedTool])
+
 
   useEffect(() => {
 

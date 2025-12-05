@@ -1,3 +1,4 @@
+import { Tool } from "@/components/Canvas";
 import { getExistingShapes } from "./http";
 
 type Shape =
@@ -31,6 +32,7 @@ export class Game {
   private startX = 0;
   private startY = 0;
   private socket: WebSocket;
+  private selectedTool : Tool = "circle";
 
   constructor(canvas: HTMLCanvasElement, roomId: string, socket: WebSocket) {
     this.canvas = canvas;
@@ -42,6 +44,10 @@ export class Game {
     this.init();
     this.initHandlers();
     this.initMouseHandlers();
+  }
+
+  setTool(Tool: "circle" | "pencil" | "rect"){
+this.selectedTool = Tool;
   }
 
   async init() {
@@ -149,7 +155,7 @@ export class Game {
       this.clearCanvas();
       this.ctx.strokeStyle = "rgba(255,255,255)";
       //@ts-ignore
-      const selectedTool = window.selectedTool;
+      const selectedTool = this.selectedTool;
 
       if (selectedTool === "rect") {
         this.ctx.strokeRect(this.startX, this.startY, width, height);

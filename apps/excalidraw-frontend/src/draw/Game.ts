@@ -55,7 +55,7 @@ export class Game {
   }
 
   setTool(Tool: "circle" | "pencil" | "rect"){
-this.selectedTool = Tool;
+    this.selectedTool = Tool;
   }
 
   async init() {
@@ -118,7 +118,7 @@ this.selectedTool = Tool;
 
     let shape: Shape | null = null;
 
-    if (selectedTool === " rect") {
+    if (this.selectedTool === "rect") {
       shape = {
         //@ts-ignore
         type: "rect",
@@ -127,15 +127,15 @@ this.selectedTool = Tool;
         height,
         width,
       };
-    } else if(selectedTool === "circle"){
+    } else if(this.selectedTool === "circle"){
 
-      const radius = Math.max(width, height) / 2;
+      const radius = Math.max(Math.abs(width), Math.abs(height)) / 2;
       shape= {
         //@ts-ignore
         type: "circle",
         radius: radius,
-        centerX: this.startX + radius,
-        centerY: this.startY + radius,
+        centerX: this.startX + width/2,
+        centerY: this.startY + height/2,
       };
     }
 
@@ -173,7 +173,7 @@ this.selectedTool = Tool;
       } else if (selectedTool === "circle") {
         const centerX = this.startX + width / 2;
         const centerY = this.startY + height / 2;
-        const radius = Math.max(width, height) / 2;
+        const radius = Math.max(Math.abs(width), Math.abs(height)) / 2;
         this.ctx.beginPath();
         this.ctx.arc(centerX, centerY, Math.abs(radius), 0, Math.PI * 2);
         this.ctx.stroke();

@@ -46,6 +46,14 @@ export class Game {
     this.initMouseHandlers();
   }
 
+  destroy(){
+    this.canvas.removeEventListener("mousedown", this.mouseDownHandler);
+
+    this.canvas.removeEventListener("mouseup", this.mouseUpHandler);
+
+    this.canvas.removeEventListener("mousemove", this.mouseMoveHandler);
+  }
+
   setTool(Tool: "circle" | "pencil" | "rect"){
 this.selectedTool = Tool;
   }
@@ -80,8 +88,8 @@ this.selectedTool = Tool;
         this.ctx.beginPath();
         this.ctx.arc(
           shape.centerX,
-          shape.centerX,
-          shape.radius,
+          shape.centerY,
+          Math.abs(shape.radius),
           0,
           Math.PI * 2
         );
@@ -91,15 +99,16 @@ this.selectedTool = Tool;
     });
   }
 
-  initMouseHandlers() {
-    this.canvas.addEventListener("mousedown", (e) => {
-      this.clicked = true;
 
-      this.startX = e.clientX;
-      this.startY = e.clientY;
-    });
+  mouseDownHandler = (e) => {
+    this.clicked = true;
 
-    this.canvas.addEventListener("mouseup", (e) => {
+    this.startX = e.clientX;
+    this.startY = e.clientY;
+  }
+
+
+  mouseUpHandler = (e) => {
     this.clicked = false;
 
     const width = e.clientX - this.startX;
@@ -126,7 +135,7 @@ this.selectedTool = Tool;
         type: "circle",
         radius: radius,
         centerX: this.startX + radius,
-        centerY: this.startX + radius,
+        centerY: this.startY + radius,
       };
     }
 
@@ -147,9 +156,10 @@ this.selectedTool = Tool;
         }),
       })
     );
-  });
+  }
 
-  this.canvas.addEventListener("mousemove", (e) => {
+
+  mouseMoveHandler = (e) => {
     if (this.clicked) {
       const width = e.clientX - this.startX;
       const height = e.clientY - this.startY;
@@ -164,13 +174,22 @@ this.selectedTool = Tool;
         const centerX = this.startX + width / 2;
         const centerY = this.startY + height / 2;
         const radius = Math.max(width, height) / 2;
-        this.ctx.arc(centerX, centerY, radius, 0, Math.PI * 2);
-        this.ctx.closePath();
-        this.ctx.stroke();
         this.ctx.beginPath();
+        this.ctx.arc(centerX, centerY, Math.abs(radius), 0, Math.PI * 2);
+        this.ctx.stroke();
+        this.ctx.closePath();
       }
     }
-  });
+  }
+
+  
+
+  initMouseHandlers() {
+    this.canvas.addEventListener("mousedown", this.mouseDownHandler);
+
+    this.canvas.addEventListener("mouseup", this.mouseUpHandler);
+
+  this.canvas.addEventListener("mousemove", this.mouseMoveHandler);
   }
   
 }

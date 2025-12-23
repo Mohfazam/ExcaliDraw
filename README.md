@@ -6,3 +6,5 @@
 * [X] Lines/Stroke disappearing nor being saved in the DB
 * [ ] Adding More shapes
 * [ ] Adding Panning and Zooming
+* [ ] Adding Auth Page
+* [ ] Adding Room Page

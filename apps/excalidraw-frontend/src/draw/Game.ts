@@ -86,7 +86,7 @@ export class Game {
 
 
 
-  mouseDownHandler = (e) => {
+  mouseDownHandler = (e:any) => {
 
     if(this.selectedTool === "pencil"){
       this.currentPencilPoints = [];
@@ -100,7 +100,7 @@ export class Game {
   }
 
 
-  mouseMoveHandler = (e) => {
+  mouseMoveHandler = (e:any) => {
     if (this.clicked && this.selectedTool === "pencil") {
   const { x, y } = this.getMousePos(e);
   this.currentPencilPoints.push({ x, y });
@@ -146,7 +146,7 @@ export class Game {
   }
 
 
-  mouseUpHandler = (e) => {
+  mouseUpHandler = (e:any) => {
 
     let shape: Shape | null = null;
 
@@ -157,7 +157,6 @@ export class Game {
       };
 
       this.clicked = false;
-      return;
     }
 
     const width = e.clientX - this.startX;
